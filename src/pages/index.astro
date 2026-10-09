@@ -1,0 +1,90 @@
+---
+import '../styles/global.css';
+import Nav from '../components/Nav';
+import Gallery from '../components/Gallery';
+import { business as b, photos } from '../data';
+const cards = [
+  ['/images/card-1.jpg', 'Setting', 'An elevated Mount Nelson location, set apart from the city bustle.'],
+  ['/images/card-2.jpg', 'Food & drink', 'A place to sit down, eat well and take your time. Menu highlights go here.'],
+  ['/images/card-3.jpg', 'Easy booking', 'Call the team to reserve. An online booking form can slot in here.'],
+];
+const socials = [['Facebook', b.facebook], ['Instagram', b.instagram], ['Google', b.google]];
+---
+<!doctype html>
+<html lang="en-AU">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Signal Station — Mount Nelson, Tasmania</title>
+  <meta name="description" content="Signal Station at Mount Nelson, Hobart. 700 Nelson Rd, Mt Nelson TAS." />
+</head>
+<body id="top">
+  <Nav client:load phoneHref={b.phoneHref} />
+
+  <header class="relative overflow-hidden bg-deep bg-cover bg-center text-white" style="background-image:url('/images/hero.webp')">
+    <div class="absolute inset-0 bg-gradient-to-b from-black/60 via-black/25 to-black/60"></div>
+    <div class="relative mx-auto max-w-6xl px-4 pb-48 pt-28">
+      <p class="text-xs uppercase tracking-[.22em] opacity-85">Mount Nelson · Hobart, Tasmania</p>
+      <h1 class="mb-5 mt-4 max-w-[11ch] font-serif text-6xl font-semibold leading-none md:text-8xl">Dining above the harbour</h1>
+      <p class="mb-8 max-w-md text-lg opacity-95">Signal Station sits high on Mount Nelson, a short drive from Hobart. Come for the setting, stay for the meal.</p>
+      <div class="flex flex-wrap gap-3">
+        <a href={b.phoneHref} class="rounded-full bg-ember px-6 py-3 font-semibold">Reserve a table</a>
+        <a href="#visit" class="rounded-full border border-white px-6 py-3 font-semibold">Find us</a>
+      </div>
+    </div>
+    <svg viewBox="0 0 1200 300" preserveAspectRatio="none" class="absolute bottom-0 h-2/5 w-full" aria-hidden="true">
+      <path d="M0 300V190C150 130 260 170 400 140S650 60 800 120s280 40 400-20V300Z" fill="#2c4152" opacity=".55" />
+      <path d="M0 300V235C180 190 300 230 480 200S760 150 900 190s210 20 300-10V300Z" fill="#1c2b36" />
+    </svg>
+  </header>
+
+  <section id="about" class="mx-auto max-w-6xl px-4 py-20">
+    <p class="text-xs font-semibold uppercase tracking-[.2em] text-ember">About</p>
+    <h2 class="mb-4 mt-2 font-serif text-4xl font-semibold md:text-5xl">A Hobart landmark with a view</h2>
+    <p class="max-w-xl text-ink/65">Perched at 700 Nelson Road, Signal Station is a Mount Nelson restaurant that locals and visitors seek out.</p>
+    <div class="mt-9 grid gap-5 sm:grid-cols-3">
+      {cards.map(([i, t, d]) => (
+        <div class="overflow-hidden rounded-2xl border border-black/10 bg-white">
+          <img src={i} alt={t} loading="lazy" class="aspect-[4/3] w-full object-cover" />
+          <div class="p-6">
+            <h3 class="mb-2 font-serif text-2xl font-semibold">{t}</h3>
+            <p class="text-sm text-ink/65">{d}</p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section id="gallery" class="bg-deep py-20 text-[#eee9e1]">
+    <div class="mx-auto max-w-6xl px-4">
+      <p class="text-xs font-semibold uppercase tracking-[.2em] text-[#e0824f]">Gallery</p>
+      <h2 class="mb-8 mt-2 font-serif text-4xl font-semibold md:text-5xl">From daylight to dusk</h2>
+      <Gallery client:visible photos={photos} />
+    </div>
+  </section>
+
+  <section id="visit" class="mx-auto grid max-w-6xl gap-10 px-4 py-20 md:grid-cols-2">
+    <div>
+      <p class="text-xs font-semibold uppercase tracking-[.2em] text-ember">Visit</p>
+      <h2 class="mt-2 font-serif text-4xl font-semibold md:text-5xl">Find Signal Station</h2>
+      <dl class="mt-6 grid grid-cols-[auto_1fr] gap-x-5 gap-y-3 text-sm">
+        <dt class="text-ink/60">Address</dt><dd>{b.address}</dd>
+        <dt class="text-ink/60">Phone</dt><dd><a href={b.phoneHref} class="underline decoration-black/20">{b.phone}</a></dd>
+        <dt class="text-ink/60">Email</dt><dd><a href={`mailto:${b.email}`} class="underline decoration-black/20">{b.email}</a></dd>
+      </dl>
+      <div class="mt-7 flex flex-wrap gap-2.5 text-sm">
+        {socials.map(([l, h]) => (
+          <a href={h} target="_blank" rel="noopener" class="rounded-full border border-black/15 bg-white px-4 py-2 hover:border-ember">{l}</a>
+        ))}
+      </div>
+    </div>
+    <iframe title="Map of Signal Station" loading="lazy" src={b.map} class="min-h-80 w-full rounded-2xl border border-black/10"></iframe>
+  </section>
+
+  <footer class="border-t border-black/10 py-7 text-sm text-ink/60">
+    <div class="mx-auto flex max-w-6xl flex-wrap justify-between gap-2 px-4">
+      <span>© Signal Station, Mount Nelson TAS</span><span>Concept demo for pitch — not the live website</span>
+    </div>
+  </footer>
+</body>
+</html>
